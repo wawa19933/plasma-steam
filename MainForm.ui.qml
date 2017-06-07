@@ -7,7 +7,7 @@ Rectangle {
     gradient: Gradient {
         GradientStop {
             position: 0
-            color: "#383535"
+            color: "#524d4d"
         }
 
         GradientStop {
@@ -20,15 +20,19 @@ Rectangle {
 
     ListView {
         id: listView
+        flickDeceleration: 800
+        maximumFlickVelocity: 2500
+        boundsBehavior: Flickable.StopAtBounds
+        snapMode: ListView.SnapOneItem
         anchors.fill: parent
         spacing: 5
         section.property: "status"
         section.delegate: Item {
-            height: 10
+            height: 15
             width: listView.width
             Rectangle {
                 anchors.fill: parent
-                color: '#90383535'
+                color: "#b3272626"
 
                 Text {
                     text: section
