@@ -23,26 +23,26 @@ Rectangle {
         flickDeceleration: 800
         maximumFlickVelocity: 2500
         boundsBehavior: Flickable.StopAtBounds
-        snapMode: ListView.SnapOneItem
+        snapMode: ListView.SnapToItem
         anchors.fill: parent
         spacing: 5
-        section.property: "status"
-        section.delegate: Item {
-            height: 15
-            width: listView.width
-            Rectangle {
-                anchors.fill: parent
-                color: "#b3272626"
 
-                Text {
-                    text: section
-                    anchors.fill: parent
-                    font.pixelSize: 10
-                    color: 'white'
-                }
-            }
-        }
+        //        section.property: "status"
+        //        section.delegate: Item {
+        //            height: 15
+        //            width: listView.width
+        //            Rectangle {
+        //                anchors.fill: parent
+        //                color: "#b3272626"
 
+        //                Text {
+        //                    text: section
+        //                    anchors.fill: parent
+        //                    font.pixelSize: 10
+        //                    color: 'white'
+        //                }
+        //            }
+        //        }
         delegate: Item {
             x: 5
             width: listView.width
@@ -63,13 +63,14 @@ Rectangle {
                 Column {
                     spacing: 5
                     Text {
-                        text: nick + ' - ' + name
+                        text: nick
                         font.bold: true
-                        color: 'white'
+                        color: "#222222"
+                        function setColor() {}
                     }
 
                     Text {
-                        text: status + ' ' + game
+                        text: status
                         color: 'lightgrey'
                         font.weight: Font.Light
                         font.italic: true

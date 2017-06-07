@@ -76,28 +76,29 @@ function getProfiles(steamIds) {
                 var obj = {
                     "steamid": players[i].steamid,
                     "nick": players[i].personaname,
-                    "name": players[i].realname,
+                    "color": "",
                     "status": userStatus[players[i].personastate],
-                    "gameid": players[i].gameid,
+//                    "gameid": players[i].gameid,
 //                    "game": players[i].gameextrainfo,
-                    "visibility": userVisibility[players[i].communityvisibilitystate],
+//                    "visibility": userVisibility[players[i].communityvisibilitystate],
                     "photo": players[i].avatarmedium
                 };
 
                 switch(players[i].personastate) {
                 case 1: // Online
+                    if (players[i].gameextrainfo)
+                        obj.status = "In " + players[i].gameextrainfo;
+                    obj.color = ""
                     friendsModel.insert(count.online, obj);
                     for (var j in count)
                         count[j]++;
-                    if (players[i].gameextrainfo) {
-                        obj.status = "In " + players[i].gameextrainfo;
-                    }
-
                     break;
                 case 6: // Looking to play
                     friendsModel.insert(count.play);
                     count.play++;
                     break;
+                case 0:
+                    obj.status += "\n" + timeSince(players[i].lastlogoff * 1000)
                 default:
                     friendsModel.append(obj);
                 }
@@ -148,5 +149,5 @@ var timeSince = function(date) {
     intervalType += 's';
   }
 
-  return interval + ' ' + intervalType;
+  return interval + ' ' + intervalType + ' ago';
 };
