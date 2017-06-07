@@ -60,7 +60,6 @@ function getProfiles(steamIds) {
             var players = JSON.parse(req.responseText).response.players;
             friendsModel.clear();
             var count = {
-//                "offline": 0,
                 "online": 0,
 //                "busy": 0,
 //                "away": 0,
@@ -76,7 +75,7 @@ function getProfiles(steamIds) {
                 var obj = {
                     "steamid": players[i].steamid,
                     "nick": players[i].personaname,
-                    "color": "",
+                    "scolor": "#969696",
                     "status": userStatus[players[i].personastate],
 //                    "gameid": players[i].gameid,
 //                    "game": players[i].gameextrainfo,
@@ -86,10 +85,15 @@ function getProfiles(steamIds) {
 
                 switch(players[i].personastate) {
                 case 1: // Online
-                    if (players[i].gameextrainfo)
+                    if (players[i].gameextrainfo) {
                         obj.status = "In " + players[i].gameextrainfo;
-                    obj.color = ""
-                    friendsModel.insert(count.online, obj);
+                        obj.scolor = "#b4e62a";
+                        friendsModel.insert(0, obj);
+                    }
+                    else {
+                        obj.scolor = "#379ddc"
+                        friendsModel.insert(count.online, obj);
+                    }
                     for (var j in count)
                         count[j]++;
                     break;
@@ -98,7 +102,7 @@ function getProfiles(steamIds) {
                     count.play++;
                     break;
                 case 0:
-                    obj.status += "\n" + timeSince(players[i].lastlogoff * 1000)
+                    obj.status = timeSince(players[i].lastlogoff * 1000)
                 default:
                     friendsModel.append(obj);
                 }
